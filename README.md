@@ -154,7 +154,7 @@ To manage this complex, multi-file memory bank, we had to adopt rigorous **Agent
 We learned one brutal truth very early on: **AI is as lazy as a human.** 
 It will give you the absolute minimum output required to vaguely meet your prompt. If you get garbage out, it is not the LLM's fault; it is *your* fault for not defining the output concisely, or for having conflicting rules. You cannot be afraid to dig deep with the AI, find its logic flaws, and rewrite the management instructions. If the output technically passes the rules but lacks the "spirit" of the design, you must tell the agent exactly why and force a correction. Be an active Human-in-the-Loop.
 
-### 10 Core Hints for Agentic Orchestration
+### 11 Core Hints for Agentic Orchestration
 If you are preparing to build a similar architecture, heed these lessons from the trenches:
 
 1. **Be Creative:** Don't force legacy paradigms onto new technology. If JSON fails, use HTML or another format that works for your specific use case.
@@ -167,6 +167,7 @@ If you are preparing to build a similar architecture, heed these lessons from th
 8. **Steal From the Open Web:** Look to the web for Agent Skill enhancements. GitHub has thousands of Agent Skills. Search for ideas to leverage directly into your agents' logic. My AI did this work. I told it to search Github for Skills it could find solutions from to enhance its own logic and skillset of the team.
 9. **Let the AI Design the Team:** Let the AI help design the workflow, formulate the QA feedback, diagnose the output issues, and refine the skills. This exponentially speeds up the process by leveraging AI for what it is actually good at—pattern recognition and iteration.
 10. **Have a Conversation With Your AI:** Don't be afraid to approach it with a raw problem. If you ask *"I know JSON is standard, but could we fake it with custom HTML tags?"*, you will soon have a fully realized concept to test. Give the agents the high-level view so they don't get locked into rabbit holes chasing irrelevant bugs. They want to please you; let them take your off-the-wall ideas and run with them.
+11. **Abandon the Browser (Don't Fear the IDE):** Stop trying to build complex pipelines in standard consumer chatbot interfaces. If you feel intimidated by a "technical looking" Integrated Development Environment (IDE) like Antigravity, don't be. My business partner is highly technical, but he isn't a traditional software coder. He initially tried to build this architecture by typing prompts into the standard Gemini web interface and constantly hit roadblocks. When I finally exposed him to the Antigravity IDE, his effectiveness skyrocketed. He asked why I had been hiding it from him! The ability for the AI to seamlessly read local folders, manipulate your files directly, and coordinate multi-agent tasks inside an IDE is the fundamental difference between playing with a "chatbot toy" and operating an "agentic tool." And just like that, I had a convert to the Dark Side.
 
 ### Get Creative With Your Pipelines
 Did we still have to build dedicated repair functions into our Python scripts? Absolutely. The XML formatting for our Moodle quiz banks still occasionally forgot to append answers to drag-and-drop questions. We had to embrace failure, learn from the drift, and heavily adapt.
