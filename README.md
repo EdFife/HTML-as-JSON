@@ -12,6 +12,11 @@
 
 ---
 
+## 📝 Deep Dive Articles
+📝 **[My AI Agents Version Themselves: How We Built Self-Evolving Personas Using Semantic Versioning](https://dev.to/edfife/my-ai-agents-version-themselves-how-we-built-self-evolving-personas-using-semantic-versioning-d9b)** — How our agents started teaching themselves to be better, and why we had to invent version control for behavior, not code.
+
+---
+
 If you ask an LLM to build a Moodle course directly, it fails. 
 
 If you ask it for raw code to inject into a learning management system layout, it hallucinates, the tags break, and the import crashes across the entire server. 
