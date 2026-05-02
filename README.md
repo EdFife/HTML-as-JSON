@@ -12,11 +12,6 @@
 
 ---
 
-## 📝 Deep Dive Articles
-📝 **[My AI Agents Version Themselves: How We Built Self-Evolving Personas Using Semantic Versioning](https://dev.to/edfife/my-ai-agents-version-themselves-how-we-built-self-evolving-personas-using-semantic-versioning-d9b)** — How our agents started teaching themselves to be better, and why we had to invent version control for behavior, not code.
-
----
-
 If you ask an LLM to build a Moodle course directly, it fails. 
 
 If you ask it for raw code to inject into a learning management system layout, it hallucinates, the tags break, and the import crashes across the entire server. 
@@ -227,15 +222,25 @@ If you are preparing to build a similar architecture, heed these lessons from th
 
 ## 🏁 Get Creative With Your Pipelines
 
-Did we still have to build dedicated repair functions into our Python scripts? Absolutely. The XML formatting for our Moodle quiz banks still occasionally forgot to append answers to drag-and-drop questions. We had to embrace failure, learn from the drift, and heavily adapt.
+Did we still have to build dedicated repair functions into our Python scripts? Absolutely. But we stopped fighting the same battles. The XML quiz bank problem described earlier in this repo was eventually solved permanently — we separated content authoring from schema enforcement using an HTML template and a dedicated Python converter. The full breakdown is in the Dev.to article linked below.
 
-But the results speak for themselves. We went from an outline to a fully deployed 12-module Moodle package—with medical-grade imagery and interactive H5P activities—in under 3 hours. 
+We went from an outline to a fully deployed 12-module Moodle package — with medical-grade imagery and interactive H5P activities — in under 3 hours. The pipeline has run three more courses since the quiz fix. Zero XML debugging sessions.
 
-Strict structured JSON output isn't the only way to build an agentic pipeline. Think about what your exact usecase requires, take a step back, and architect a custom solution around what the AI *excels* at producing.
+Strict structured JSON output isn't the only way to build an agentic pipeline. Think about what your exact use case requires, take a step back, and architect a custom solution around what the AI *excels* at producing.
 
-And to be perfectly clear: **this architecture is not theoretical.** The repository you are looking at contains a substantial chunk of our actual AI prompting framework and the literal Python extraction script we run in production. While we aren't giving away our entire proprietary curriculum, we have provided enough of the raw build engine and AI personas to prove that we built this for real—and more importantly, to give you the exact foundation you need to start building your own.
+And to be perfectly clear: **this architecture is not theoretical.** The repository you are looking at contains a substantial chunk of our actual AI prompting framework and the literal Python extraction script we run in production. While we aren't giving away our entire proprietary curriculum, we have provided enough of the raw build engine and AI personas to prove that we built this for real — and more importantly, to give you the exact foundation you need to start building your own.
 
 **Stop fighting the tech. Start orchestrating the workflow.**
+
+---
+
+## 📝 Further Reading
+
+These articles document the evolution of this architecture:
+
+1. 📝 **[My AI Agents Version Themselves: How We Built Self-Evolving Personas Using Semantic Versioning](https://dev.to/edfife/my-ai-agents-version-themselves-how-we-built-self-evolving-personas-using-semantic-versioning-d9b)** — How our agents started teaching themselves to be better, and why we had to invent version control for behavior, not code.
+
+2. 📝 **[Your AI Is Doing the Wrong Job. That's On You.](https://dev.to/edfife/your-ai-is-doing-the-wrong-job-thats-on-you-3182)** — What two weeks of Moodle import errors taught us about right-sizing roles. Includes the open source HTML quiz template and Python converter.
 
 <br>
 
