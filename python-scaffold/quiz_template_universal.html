@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<!--
+================================================================================
+  DAS QUIZ AUTHORING TEMPLATE  —  UNIVERSAL (All Modules + Final Exam)
+  Version 1.0  |  PTA Master Moodle Compiler Pipeline
+================================================================================
+
+  HOW THIS TEMPLATE WORKS
+  -----------------------
+  1. Fill in the METADATA FIELDS in the <head> section below.
+  2. For each SECTION you want to include, set data-include="yes"
+     For sections you do NOT need, set data-include="no"  (do not delete them)
+  3. Add your questions inside each section following the examples shown.
+  4. Save the file as:  C##_M##_Quiz.html  or  C##_FinalExam_Quiz.html
+  5. Hand off to T2. The Python converter handles all XML formatting.
+
+  YOU DO NOT NEED ANY OTHER GUIDE. All instructions are in this file.
+
+  CRITICAL AUTHORING RULES — READ BEFORE WRITING ANY CONTENT
+  -----------------------------------------------------------
+  RULE 1: PLAIN ASCII ONLY. No smart quotes, no curly apostrophes, no em dashes.
+          BAD:  "athlete's knee"   "spinal–cord"   "C-N-R — the framework"
+          GOOD: "athlete's knee"   "spinal-cord"   "C-N-R - the framework"
+          If your AI tool outputs fancy punctuation, replace it before saving.
+
+  RULE 2: NO STYLING. Do not add style= attributes, <font> tags, color,
+          or font-size anywhere in the file. The pipeline applies its own styles.
+
+  RULE 3: DO NOT CHANGE data-type VALUES on <section> elements.
+          The converter reads these exactly. Typos break the import.
+          Valid values: matching | truefalse | cloze | essay
+
+  RULE 4: DO NOT CHANGE THE SECTION STRUCTURE. Keep <section> > <article> nesting.
+          You may add as many <article> blocks as needed within a section.
+
+  RULE 5: DO NOT DELETE SECTIONS. Set data-include="no" to exclude a section.
+          Deleting a section can cause silent parse errors.
+
+  RULE 6: KEEP data-id VALUES UNIQUE across the entire file.
+          Convention:  C##-M##-TYPE-##   e.g.  C2-M01-MATCH-01
+          Final Exam:  C##-FE-TYPE-##    e.g.  C2-FE-TF-01
+
+  RULE 7: MINIMUM POOL SIZES (converter will warn if not met):
+          Matching  >= 3 sets  if delivery-type = sync
+          Matching  >= 5 sets  if delivery-type = async OR both
+          TrueFalse >= 8 questions
+          Cloze     >= 6 questions
+          Essay     >= 4 questions
+
+          PRACTICAL RULE: All C2 and C3 files use delivery-type="both".
+          That means Matching >= 5 for every file you author.
+          You may always write MORE than the minimum. More = better random variation.
+
+================================================================================
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <!--
+  ============================================================
+  METADATA FIELDS — Fill in every field. Do not remove any.
+  ============================================================
+
+  FIELD: course
+    The course identifier. Match exactly to the Moodle course short name.
+    Examples: DAS-2  |  DAS-3  |  DAS-4
+  -->
+  <meta name="course" content="DAS-2">
+
+  <!--
+  FIELD: file-type
+    What kind of quiz file is this?
+    EXACTLY one of:  module  |  finalexam
+    - module    = a standard per-module question bank (M01 through M12)
+    - finalexam = the course final exam question bank
+  -->
+  <meta name="file-type" content="module">
+
+  <!--
+  FIELD: module
+    If file-type is "module":    use the module code, e.g.  M01  M02  M11
+    If file-type is "finalexam": use the word FINAL (all caps)
+    Do not include "Module" or any other prefix - just the code.
+  -->
+  <meta name="module" content="M01">
+
+  <!--
+  FIELD: title
+    Human-readable module or exam title. Used for display and documentation only.
+    Plain text. No special characters.
+    Examples:
+      Anatomical Language and Directional Terms
+      Cardiovascular System and Cardiac Emergencies
+      Course Final Examination
+  -->
+  <meta name="title" content="Anatomical Language and Directional Terms">
+
+  <!--
+  FIELD: delivery-type
+    How will this quiz be delivered in Moodle?
+    EXACTLY one of:  sync  |  async  |  both
+    - sync  = live proctored delivery only
+    - async = self-paced online delivery only
+    - both  = bank supports both delivery modes (most common)
+    NOTE: This does not change what questions you write. It is metadata only.
+    Moodle quiz activity settings control the actual delivery behavior.
+  -->
+  <meta name="delivery-type" content="both">
+
+  <!--
+  FIELD: authored-by
+    The authoring agent or team member ID.
+    Examples:  T1-Jerry  |  T1-AI  |  Ed
+  -->
+  <meta name="authored-by" content="T1-Jerry">
+
+  <!--
+  FIELD: date
+    Date this file was authored or last revised.
+    Format: YYYY-MM-DD  e.g.  2026-04-29
+  -->
+  <meta name="date" content="2026-04-29">
+
+  <!--
+  FIELD: notes
+    Optional free-text notes for T2 or for the pipeline log.
+    Plain ASCII only. Leave blank if nothing to add.
+  -->
+  <meta name="notes" content="">
+
+  <title>DAS Quiz — M01 — Anatomical Language</title>
+</head>
+<body>
+
+<!--
+================================================================================
+  SECTION: MATCHING
+  data-include: Set to "yes" to include, "no" to skip this section entirely.
+
+  WHAT IT IS:
+    Matching questions present a list of terms (stems) and a list of definitions
+    (answers). Students drag or select to pair them. Moodle randomly draws from
+    this pool and shuffles both sides on each delivery.
+
+  STRUCTURE PER QUESTION SET:
+    Each <article> = one complete matching question set (one set of pairs).
+    - <h3>        = question set name (shown in Moodle question bank)
+    - <p class="instructions"> = the prompt shown to the student
+    - <table class="pairs">  = one <tr> per matching pair
+      - <td class="stem">    = the term/question side (left)
+      - <td class="answer">  = the definition/answer side (right)
+    - <p class="feedback-correct">  = shown when ALL pairs correct
+    - <p class="feedback-partial">  = shown when SOME pairs correct
+    - <p class="feedback-wrong">    = shown when no pairs correct
+
+  RULES FOR THIS SECTION:
+    - Each article must have at least 4 pairs (rows) to be meaningful.
+    - Aim for 5-8 pairs per set. Moodle draws and shuffles from all pairs.
+    - Do not put the same term in two different sets in this file.
+    - Feedback lines are required. Keep them brief and instructional.
+    - Plain ASCII only in all text cells (see RULE 1 above).
+
+  STRUCTURE NOTE: Each <article> = one complete Moodle matching question.
+    When Moodle draws N matching questions from the bank it draws N complete
+    articles with ALL their pairs intact. The converter never splits pairs across
+    articles. Each article should be a coherent, thematically grouped set.
+
+  MINIMUM: 3 sets if delivery-type=sync | 5 sets if delivery-type=async or both.
+    Since all C2/C3 files use delivery-type="both" -> author 5 <article> sets minimum.
+================================================================================
+-->
+<section data-type="matching" data-include="yes">
+
+  <!--
+  MATCHING QUESTION SET — Example 1 of 3 (minimum)
+  Copy this entire <article> block to add more sets.
+  Change data-id to the next number: C2-M01-MATCH-02, C2-M01-MATCH-03, etc.
+  -->
+  <article data-id="C2-M01-MATCH-01">
+    <h3>M01 Matching A - Directional Term Definitions</h3>
+    <p class="instructions">Match each directional term to its correct anatomical definition.</p>
+    <table class="pairs">
+      <tr>
+        <td class="stem">Superior</td>
+        <td class="answer">Toward the head end of the body</td>
+      </tr>
+      <tr>
+        <td class="stem">Inferior</td>
+        <td class="answer">Away from the head, toward the feet</td>
+      </tr>
+      <tr>
+        <td class="stem">Anterior</td>
+        <td class="answer">Toward the front of the body</td>
+      </tr>
+      <tr>
+        <td class="stem">Posterior</td>
+        <td class="answer">Toward the back of the body</td>
+      </tr>
+      <tr>
+        <td class="stem">Medial</td>
+        <td class="answer">Toward the midline of the body</td>
+      </tr>
+      <tr>
+        <td class="stem">Lateral</td>
+        <td class="answer">Away from the midline of the body</td>
+      </tr>
+    </table>
+    <p class="feedback-correct">Correct! These directional terms are used in every incident report you will write.</p>
+    <p class="feedback-partial">Review the missed terms in the Module 01 directional terms table and retry.</p>
+    <p class="feedback-wrong">Return to the Module 01 directional terms table before attempting again.</p>
+  </article>
+
+  <!-- ADD MORE MATCHING SETS BELOW THIS LINE. Minimum: 3 total. -->
+
+</section><!-- /matching -->
+
+
+<!--
+================================================================================
+  SECTION: TRUE/FALSE
+  data-include: Set to "yes" to include, "no" to skip this section entirely.
+
+  WHAT IT IS:
+    True/False questions present a statement. Students select True or False.
+    Moodle randomly draws from this pool on each delivery.
+
+  STRUCTURE PER QUESTION:
+    Each <article> = one True/False question.
+    - <p class="question">    = the statement the student evaluates
+    - <p class="correct-answer" data-correct="true">   = correct answer is TRUE
+    - <p class="correct-answer" data-correct="false">  = correct answer is FALSE
+      (only one of these per article; change the data-correct value, not the tag)
+    - <p class="feedback-correct"> = shown when student answers correctly
+    - <p class="feedback-wrong">   = shown when student answers incorrectly
+
+  RULES FOR THIS SECTION:
+    data-correct MUST be exactly:  true  or  false  (all lowercase, no capitals)
+    BAD:   data-correct="True"    data-correct="FALSE"   data-correct="yes"
+    GOOD:  data-correct="true"    data-correct="false"
+
+    - Write statements that are clearly and unambiguously true or false.
+    - Avoid double negatives ("It is NOT incorrect that...").
+    - Each question must have exactly one feedback-correct and one feedback-wrong.
+    - Balance the pool: aim for roughly equal true and false correct answers.
+    - Plain ASCII only (see RULE 1 above).
+
+  MINIMUM: 8 questions (8 <article> blocks) if this section is included.
+================================================================================
+-->
+<section data-type="truefalse" data-include="yes">
+
+  <!--
+  TRUE/FALSE QUESTION — Example (correct answer: TRUE)
+  Copy this block to add more questions. Increment data-id each time.
+  -->
+  <article data-id="C2-M01-TF-01">
+    <p class="question">The anatomical position has the body standing upright, facing forward, with palms facing anteriorly.</p>
+    <p class="correct-answer" data-correct="true"></p>
+    <p class="feedback-correct">Correct. Palms facing anterior (forward) is a defining feature of anatomical position.</p>
+    <p class="feedback-wrong">Incorrect. In anatomical position the palms face anteriorly, not posteriorly. Review Module 01.</p>
+  </article>
+
+  <!--
+  TRUE/FALSE QUESTION — Example (correct answer: FALSE)
+  Note: only the data-correct value changes. The tag name stays the same.
+  -->
+  <article data-id="C2-M01-TF-02">
+    <p class="question">The sagittal plane divides the body into anterior and posterior sections.</p>
+    <p class="correct-answer" data-correct="false"></p>
+    <p class="feedback-correct">Correct. The sagittal plane divides left from right. The frontal (coronal) plane divides anterior from posterior.</p>
+    <p class="feedback-wrong">Incorrect. The sagittal plane divides the body into left and right halves, not anterior and posterior. Review the body planes section in Module 01.</p>
+  </article>
+
+  <!-- ADD MORE TRUE/FALSE QUESTIONS BELOW THIS LINE. Minimum: 8 total. -->
+
+</section><!-- /truefalse -->
+
+
+<!--
+================================================================================
+  SECTION: CLOZE (Fill-in-the-Blank)
+  data-include: Set to "yes" to include, "no" to skip this section entirely.
+
+  WHAT IT IS:
+    Cloze questions present a sentence or paragraph with one or more blanks.
+    Students type the missing word(s). Moodle checks against accepted answers.
+    Randomly drawn from this pool on each delivery.
+
+  STRUCTURE PER QUESTION:
+    Each <article> = one cloze question.
+    - <p class="question"> = the question text with [BLANK:answer] markers
+
+  BLANK SYNTAX — THIS IS THE MOST IMPORTANT RULE IN THIS SECTION:
+    One accepted answer:
+      [BLANK:answer]
+      Example: The knee is [BLANK:inferior] to the hip.
+
+    Multiple accepted answers (all receive full credit):
+      [BLANK:answer1|answer2|answer3]
+      Example: The anterior cruciate ligament is also called the [BLANK:ACL|anterior cruciate].
+
+    IMPORTANT:
+      - Use the pipe character | to separate alternatives (not a comma)
+      - No spaces around the pipe:  [BLANK:ACL|anterior cruciate]  not  [BLANK:ACL | anterior cruciate]
+      - Answers are case-insensitive in Moodle (ACL = acl = Acl) — write canonical form
+      - Do not use [BLANK] without an answer — the converter requires at least one answer
+      - Each blank in a sentence is a SEPARATE [BLANK:] marker
+        Example: The [BLANK:femur] is proximal to the [BLANK:tibia].
+
+  RULES FOR THIS SECTION:
+    - The blank should have one clearly correct answer (or a small set of synonyms).
+    - Avoid blanks where many different words could reasonably fit.
+    - Plain ASCII only in both question text and answer values (see RULE 1).
+    - No feedback required for cloze questions (Moodle shows the correct answer automatically).
+
+  MINIMUM: 6 questions (6 <article> blocks) if this section is included.
+================================================================================
+-->
+<section data-type="cloze" data-include="yes">
+
+  <!--
+  CLOZE QUESTION — Example with one blank
+  -->
+  <article data-id="C2-M01-CL-01">
+    <p class="question">
+      The anatomical position is defined as the body standing upright, facing [BLANK:forward|anteriorly],
+      with arms at the sides and palms facing [BLANK:anteriorly|forward].
+    </p>
+  </article>
+
+  <!--
+  CLOZE QUESTION — Example with multiple blanks
+  Each [BLANK:] is a separate answer field in Moodle.
+  -->
+  <article data-id="C2-M01-CL-02">
+    <p class="question">
+      The plane that divides the body into left and right halves is called the [BLANK:sagittal] plane.
+      When it passes through the midline and creates equal halves, it is called the [BLANK:midsagittal|median] plane.
+    </p>
+  </article>
+
+  <!--
+  CLOZE QUESTION — Example with multiple accepted answers (synonyms)
+  -->
+  <article data-id="C2-M01-CL-03">
+    <p class="question">
+      The term [BLANK:inferior] describes a structure that is positioned away from the head,
+      toward the lower end of the body or a body part.
+    </p>
+  </article>
+
+  <!-- ADD MORE CLOZE QUESTIONS BELOW THIS LINE. Minimum: 6 total. -->
+
+</section><!-- /cloze -->
+
+
+<!--
+================================================================================
+  SECTION: ESSAY
+  data-include: Set to "yes" to include, "no" to skip this section entirely.
+
+  WHAT IT IS:
+    Essay questions present an open-ended prompt. Students write a multi-sentence
+    or paragraph response. Graded manually by the instructor using the rubric.
+    Randomly drawn from this pool on each delivery.
+
+  STRUCTURE PER QUESTION:
+    Each <article> = one essay question.
+    - <h3>              = essay name (shown in Moodle question bank)
+    - <div class="question"> = the prompt shown to the student
+      May contain <p>, <ol>, <ul>, <li>, <strong>, <em>, <blockquote>
+    - <div class="rubric">   = grading rubric (shown to instructor only)
+      Must contain a <table> with these columns:
+        Criterion | Full | Partial | None
+      Add a points value in each cell.
+
+  RULES FOR THIS SECTION:
+    - Each essay must have a rubric. The converter will warn if rubric is missing.
+    - The rubric table column headers must be exactly: Criterion, Full, Partial, None
+      (the converter reads these headers to validate the rubric structure)
+    - You may use <ol> and <ul> lists inside the <div class="question"> only.
+    - Plain ASCII only in all text (see RULE 1).
+    - Do not add <style> or inline styles to the rubric table.
+    - Aim for prompts that require synthesis, not just recall.
+
+  MINIMUM: 4 questions (4 <article> blocks) if this section is included.
+================================================================================
+-->
+<section data-type="essay" data-include="yes">
+
+  <!--
+  ESSAY QUESTION — Example 1
+  -->
+  <article data-id="C2-M01-ESS-01">
+    <h3>M01 Essay 1 - Anatomical Position and Its Importance</h3>
+    <div class="question">
+      <p>In 5-7 sentences, explain what the anatomical position is and why it serves as the universal reference standard in medical and athletic training documentation.</p>
+      <p>Your answer must address:</p>
+      <ol>
+        <li>A precise description of the anatomical position</li>
+        <li>Why a universal reference standard is necessary in clinical communication</li>
+        <li>How using (or failing to use) anatomical language affects an incident report's legal and clinical value</li>
+      </ol>
+    </div>
+    <div class="rubric">
+      <table>
+        <tr>
+          <th>Criterion</th>
+          <th>Full</th>
+          <th>Partial</th>
+          <th>None</th>
+        </tr>
+        <tr>
+          <td>Accurately describes anatomical position (stance, limb position, palm orientation)</td>
+          <td>3</td>
+          <td>1</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>Explains why a universal reference standard is required in clinical/legal documentation</td>
+          <td>4</td>
+          <td>2</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>Connects anatomical language use to documentation quality and professional accountability</td>
+          <td>3</td>
+          <td>1</td>
+          <td>0</td>
+        </tr>
+      </table>
+    </div>
+  </article>
+
+  <!--
+  ESSAY QUESTION — Example 2 (shorter prompt, still requires rubric)
+  -->
+  <article data-id="C2-M01-ESS-02">
+    <h3>M01 Essay 2 - C-N-R Framework Application</h3>
+    <div class="question">
+      <p>In your own words, explain the C-N-R Emergency Priority Framework and its application in the DAS role. Your answer must include:</p>
+      <ol>
+        <li>What each letter stands for and why that order matters</li>
+        <li>One concrete example for each of the three categories</li>
+        <li>Why a DAS applies this framework on every approach to a down athlete, even when the injury appears obvious</li>
+      </ol>
+    </div>
+    <div class="rubric">
+      <table>
+        <tr>
+          <th>Criterion</th>
+          <th>Full</th>
+          <th>Partial</th>
+          <th>None</th>
+        </tr>
+        <tr>
+          <td>Defines all three C-N-R categories correctly</td>
+          <td>3</td>
+          <td>1</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>Explains why the priority order matters (time-urgency rationale)</td>
+          <td>3</td>
+          <td>1</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>Provides one accurate example per category</td>
+          <td>2</td>
+          <td>1</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>Addresses why the framework is applied on every approach (tunnel vision risk)</td>
+          <td>2</td>
+          <td>1</td>
+          <td>0</td>
+        </tr>
+      </table>
+    </div>
+  </article>
+
+  <!-- ADD MORE ESSAY QUESTIONS BELOW THIS LINE. Minimum: 4 total. -->
+
+</section><!-- /essay -->
+
+
+<!--
+================================================================================
+  END OF TEMPLATE
+
+  BEFORE YOU HAND THIS FILE TO T2, CHECK:
+  [ ] All metadata fields in <head> are filled in correctly
+  [ ] data-include is set to "yes" or "no" on every <section>
+  [ ] Every data-id value is unique within this file
+  [ ] No smart quotes, curly apostrophes, or em dashes anywhere in the file
+  [ ] Every [BLANK:] marker has at least one answer
+  [ ] Every T/F question has data-correct="true" or data-correct="false" (lowercase)
+  [ ] Every essay has a rubric table with Criterion / Full / Partial / None columns
+  [ ] Minimum pool sizes are met for each included section:
+        delivery-type=sync:        Matching >= 3, TrueFalse >= 8, Cloze >= 6, Essay >= 4
+        delivery-type=async/both:  Matching >= 5, TrueFalse >= 8, Cloze >= 6, Essay >= 4
+      Since all C2/C3 files use delivery-type="both" -> Matching >= 5 on every file
+
+  FILE NAMING CONVENTION:
+    Module quiz:      C{course#}_M{module#}_Quiz.html       e.g.  C2_M01_Quiz.html
+    Final exam:       C{course#}_FinalExam_Quiz.html        e.g.  C2_FinalExam_Quiz.html
+================================================================================
+-->
+
+</body>
+</html>
