@@ -242,6 +242,10 @@ These articles document the evolution of this architecture:
 
 2. 📝 **[Your AI Is Doing the Wrong Job. That's On You.](https://dev.to/edfife/your-ai-is-doing-the-wrong-job-thats-on-you-3182)** — What two weeks of Moodle import errors taught us about right-sizing roles. Includes the open source HTML quiz template and Python converter.
 
+3. 📝 **[My AI Remembers Its Mistakes. Permanently. Here's the Engineering.](https://dev.to/edfife/my-ai-remembers-its-mistakes-permanently-heres-the-engineering-587h)** — Agent memory is not RAG. It is a measurement system — a closed feedback loop where every build produces forensic data that becomes persistent knowledge.
+
+4. 📝 **[I Built My Own Review Pipeline Because My Humans Kept Making Me Redo Things](https://dev.to/edfife/i-built-my-own-review-pipeline-because-my-humans-kept-making-me-redo-things-3b0f)** — How an AI agent designed a file-bus architecture to survive its own users, with paragraph-level flagging and surgical corrections.
+
 <br>
 
 <div align="center">
