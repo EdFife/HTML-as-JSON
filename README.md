@@ -234,6 +234,174 @@ And to be perfectly clear: **this architecture is not theoretical.** The reposit
 
 ---
 
+## 🏛️ Standing on the Shoulders of Giants
+
+None of the management patterns in this repo were invented for AI.
+
+AI agent team design is treated as a new problem requiring new solutions. It isn't. The operational challenges in running a production agent team — quality control, institutional memory, role boundaries, failure mode prioritization, knowledge transfer, coordination — are the same challenges in any specialized human workforce. Every one of them has an established solution from an adjacent discipline. The solutions just weren't labeled "for AI."
+
+The architecture in this repo borrows from manufacturing quality engineering, software release governance, organizational management, compiler theory, aviation safety, educational psychology, and psychometrics. Below is the full catalog. When you build your own agent system, this list tells you where to look before you invent.
+
+---
+
+### The Catalog at a Glance
+
+| Borrowed Tool | Origin Discipline | What It Solves in AI |
+|---|---|---|
+| **FMEA** (Failure Mode and Effects Analysis) | Aerospace/automotive manufacturing | Prioritizing which agent failure modes to fix first |
+| **Root Cause Analysis (RCA)** | Quality engineering / Toyota Production System | Separating architectural fixes from behavioral ones when outcome ≠ expected |
+| **Pareto Analysis** | Six Sigma | Identifying the 20% of failure checks causing 80% of quality problems |
+| **Control Charts** | Statistical Process Control | Tracking AI pipeline quality trends across builds |
+| **Signal/Noise Filtering** | Data quality management | Curating known-acceptable failures to prevent false positive pollution |
+| **Design of Experiments (DOE)** | Statistical experimental design (Fisher, Taguchi) | Structuring multi-variable improvement experiments so outcomes can be attributed to causes |
+| **Semantic Versioning** | Software release governance | Versioning agent persona files as they evolve |
+| **Gate Architecture** | Aerospace/pharmaceutical manufacturing QA | Structuring mandatory human review before content advances |
+| **Shift Left** | Software quality engineering | Running automated agent quality checks before the human sees content |
+| **CAD Standard** | Legal/regulatory defensibility | Defining the quality benchmark: Correct, Accurate, Defensible |
+| **Work Orders** | Manufacturing/field service operations | Structured correction briefs from human reviewer to AI agent |
+| **Knowledge Item System** | Library science / knowledge management | Institutional memory that survives agent recreation |
+| **Job Description** | Human resources | Designing agent role, authority, and scope before writing any prompt |
+| **New-Hire Onboarding** | Human resources | Activating a new agent instance into its role |
+| **Preflight Checklist** | Aviation safety | State verification before every AI session |
+| **Predecessor Archaeology** | Archaeology | Recovering institutional knowledge after agent loss |
+| **Specialist Team Structure** | Organizational design | Bounded-authority agents — no generalist overlap |
+| **Deference Rules** | Authority hierarchy / matrix org design | Who yields to whom on which domain |
+| **Scope Limits** | Contract law / Statement of Work | Explicit NEVER sections — what an agent must not do |
+| **Handoff Protocol** | Operations management / healthcare SBAR | Structured context transfer between agents at gate transitions |
+| **Compiler Architecture** | Compiler theory | LLM generates content; Python compiler handles format compliance |
+| **Graceful Degradation** | Fault tolerance engineering | HTML parses despite imperfection; JSON fails completely on one bad character |
+| **REST API Design** | Web engineering | Standard LLM-to-system communication protocol |
+| **Bloom's Taxonomy** | Educational psychology | Constraining AI assessment items to the correct cognitive level |
+| **Job Task Analysis (JTA)** | HR / training design | Anchoring AI content to what practitioners actually do in the field |
+| **Psychometric Quality Standards** | Psychometrics / credentialing science | DIF screening, Cronbach's Alpha targets, item discrimination for AI-generated quizzes |
+| **Proof-of-Work Summary** | Software delivery / project management | Gate completion summary: structured evidence package the human reviews at each gate |
+
+---
+
+### Six Worth Expanding
+
+#### FMEA — Failure Mode and Effects Analysis
+
+FMEA prioritizes failure modes in manufacturing by multiplying **Severity × Occurrence × Detectability**. We applied it directly to AI pipeline quality:
+
+```
+Risk = Severity × Persistence × Recency
+```
+
+- **Severity**: BLOCKER = 4, FAIL = 3, WARN = 1
+- **Persistence**: failure rate across all builds (0.0–1.0)
+- **Recency**: time-weighted decay since last failure
+
+High-risk checks get 🔴 in the AI's pre-session briefing. The AI triages its own attention based on data. The formula is FMEA. The vocabulary changed. The math did not.
+
+---
+
+#### Semantic Versioning — For Agent Personas
+
+SemVer (MAJOR.MINOR.PATCH) was built for software library releases. The three levels map exactly to the three types of behavioral change in an AI agent:
+
+| SemVer Level | Software | Agent Persona |
+|---|---|---|
+| MAJOR | Breaking API changes | Human-led architectural redesign of role or authority |
+| MINOR | New backward-compatible feature | Agent's autonomous self-improvement (wrote a new rule after post-mortem) |
+| PATCH | Bug fix | Targeted human micro-correction (tone fix, scope clarification) |
+
+When an agent autonomously created its own style guide to externalize rules it kept forgetting — that was a `MINOR` bump. Three months later, a human can read the version history and know exactly when and why the agent changed its own behavior.
+
+---
+
+#### Job Description — Write This Before You Write a Prompt
+
+The AI agent persona file *is* a job description. Not metaphorically — structurally:
+
+| Job Description Section | Agent Persona Equivalent |
+|---|---|
+| Job title and reporting line | Agent name + deference hierarchy |
+| Key responsibilities | Enumerated mandate list |
+| Authority scope | What the agent decides independently |
+| Out-of-scope exclusions | The explicit **NEVER** section |
+| Performance standards | Quality criteria (CAD standard, Bloom's levels) |
+| Communication style | Tone, register, persona voice rules |
+
+**Design implication:** When building a new agent, start with a job description, not a prompt. The JD discipline forces answers to questions prompt engineers skip: What decisions does this agent make independently? What is explicitly outside its mandate? Who does it defer to, and on what domain?
+
+An agent written without that discipline produces the same outcomes as a vague job description: drift, scope creep, authority conflicts.
+
+---
+
+#### Preflight Checklist — From Aviation to AI Session Start
+
+Aviation invented the preflight checklist after the 1935 Boeing Model 299 crash demonstrated that modern aircraft had become too complex to fly from memory. Commercial aviation made checklists mandatory. The insight: state verification before consequential operations is not optional.
+
+Our Pipeline Preflight Template is an HTML file every agent reads at session start before generating a single character. Three blocks:
+
+```html
+<!-- Block 1: Hard rules — scope limits, ambiguity protocol, HIL correction behavior -->
+<div id="agent-directives" data-ambiguity="stop-and-ask" data-scope="T1-only">
+
+<!-- Block 2: Machine-written pipeline state — course, gate, resume point -->
+<div id="pipeline-state" data-resume-from="3.8" data-pipeline-status="HIL_PENDING">
+
+<!-- Block 3: Human reviewer corrections — check ID, severity, exact action required -->
+<div id="hil-corrections">
+```
+
+Memory is useless without activation. The preflight is the activation. Aviation solved this in 1935.
+
+---
+
+#### Compiler Architecture — Separate Content From Format
+
+LLMs generate content fluently. They do not reliably generate content in formats requiring mechanical precision — JSON schema compliance, XML namespaces, SCORM packaging spec. The naive solution (prompt the LLM to produce the target format) fails at non-trivial rates at scale.
+
+Compiler theory solved this in the 1950s: separate the source language (which programmers write) from the target language (which machines execute). Let a compiler handle the translation.
+
+We applied it directly. LLM agents generate semantic HTML. An 80KB Python compiler (T2) ingests approved HTML and produces Moodle-compatible course packages (.mbz). The LLM never touches Moodle's internal XML format. The compiler never touches content. Separation of concerns. The attempt to have the LLM generate Moodle activity XML directly failed on every trial. (SCORM was equally unworkable.) The compiler pattern did not.
+
+---
+
+#### Graceful Degradation — Why HTML Beats JSON at Scale
+
+This is fault tolerance engineering applied to AI output parsing.
+
+```python
+# HTML: fails gracefully — partial recovery from most malformation
+soup = BeautifulSoup(html, 'html.parser')
+data = soup.find('div', {'data-module': 'M01'})  # works even with stray chars
+
+# JSON: fails completely — one bad character, zero recovery
+data = json.loads(content)  # raises exception on single unescaped quote
+```
+
+A single unescaped quotation mark in a 4,000-word lesson — the kind a language model generates with non-trivial regularity — returns nothing from `json.loads()`. BeautifulSoup recovers everything around the bad character. Across 98 pipeline builds: HTML parsing failures in 3 (3.1%), all auto-recovered. Predecessor JSON architecture: ~18% requiring manual intervention or lesson regeneration.
+
+---
+
+### The Design Checklist
+
+Before you design a custom solution for your agent system, ask which discipline already solved it:
+
+| Problem | Where to Look |
+|---|---|
+| How do I prioritize which failures to fix? | FMEA, Six Sigma, Pareto |
+| A failure keeps recurring and I don't know why? | Root Cause Analysis — 5 Whys, Ishikawa diagram |
+| How do I define a new agent role? | Write a job description first |
+| How do I enforce role boundaries? | Organizational authority structures, Statements of Work |
+| How do I keep agents from forgetting? | Knowledge management, institutional memory |
+| How do I activate an agent correctly every session? | Preflight checklist (aviation) |
+| How do I bring a new agent instance up to speed? | New-hire onboarding |
+| How do I track whether quality is improving? | Control charts, Six Sigma SPC |
+| How do I version agent behavior changes? | Semantic Versioning |
+| How do I structure human review? | Gate architecture (aerospace QA) |
+| How do I pass context between agents? | Operational handoff protocols (healthcare SBAR) |
+| How do I ensure LLM output is in a reliable format? | Compiler theory — separate content from format |
+| How do I generate valid assessment items? | Bloom's Taxonomy, JTA, psychometrics |
+| Making multiple simultaneous system changes? | Design of Experiments — design before you change |
+
+In most cases, the answer is not "design a custom solution." It is "implement the established solution with AI-appropriate tooling."
+
+---
+
 ## 📝 Further Reading
 
 These articles document the evolution of this architecture:
