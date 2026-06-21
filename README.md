@@ -234,7 +234,7 @@ And to be perfectly clear: **this architecture is not theoretical.** The reposit
 
 ---
 
-## 🏛️ Standing on the Shoulders of Giants
+## 🏛️ Standing on Existing Shoulders
 
 None of the management patterns in this repo were invented for AI.
 
@@ -259,6 +259,11 @@ The architecture in this repo borrows from manufacturing quality engineering, so
 | **Shift Left** | Software quality engineering | Running automated agent quality checks before the human sees content |
 | **CAD Standard** | Legal/regulatory defensibility | Defining the quality benchmark: Correct, Accurate, Defensible |
 | **Work Orders** | Manufacturing/field service operations | Structured correction briefs from human reviewer to AI agent |
+| **Andon Cord** | Toyota Production System | Emergency pipeline halt when a specialist agent detects a critical safety defect mid-generation |
+| **Test-Driven Development (TDD)** | Software engineering | Quality constraints and rubrics defined in Gates 1-2 before content generation begins in Gate 4.1 |
+| **Just-In-Time Manufacturing (JIT)** | Toyota Production System | Image generation deferred to Gate 4b — after content is finalized — eliminating rework waste |
+| **Telemetry and Observability** | IT operations | Gate Completion Summary exposes internal pipeline state so the human reviewer understands how the output was produced, not just what it is |
+| **Separation of Duties** | Accounting / information security | Content agents cannot audit their own output — enforced structurally, not by instruction |
 | **Knowledge Item System** | Library science / knowledge management | Institutional memory that survives agent recreation |
 | **Job Description** | Human resources | Designing agent role, authority, and scope before writing any prompt |
 | **New-Hire Onboarding** | Human resources | Activating a new agent instance into its role |
@@ -399,6 +404,17 @@ Before you design a custom solution for your agent system, ask which discipline 
 | Making multiple simultaneous system changes? | Design of Experiments — design before you change |
 
 In most cases, the answer is not "design a custom solution." It is "implement the established solution with AI-appropriate tooling."
+
+---
+
+### The Paper
+
+A full academic treatment of these thirty-two cross-domain tool applications — with production data, structural mappings, and the argument for the workforce framing of AI agent design — is in preparation. When published, it will be linked here.
+
+The core argument: **AI agent teams are managed. The management problem is not new. The tools already exist.**
+
+> *"None of this was invented from scratch. The entire system is built on existing tools and frameworks designed for software engineering and industrial process management. We just applied them to a workforce that happens to be AI."*
+> — E. Fife, [My AI Remembers Its Mistakes](https://dev.to/edfife)
 
 ---
 
